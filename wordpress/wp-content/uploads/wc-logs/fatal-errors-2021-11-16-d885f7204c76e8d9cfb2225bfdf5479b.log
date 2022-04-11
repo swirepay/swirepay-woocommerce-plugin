@@ -1,0 +1,36 @@
+2021-11-16T20:38:03+00:00 CRITICAL Uncaught Error: Call to a member function get_return_url() on null in /var/www/html/wp-content/plugins/swirepay/swirepay.php:277
+Stack trace:
+#0 /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-checkout.php(980): WC_Swirepay_Gateway->process_payment(26)
+#1 /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-checkout.php(1195): WC_Checkout->process_order_payment(26, 'swirepay_gatewa...')
+#2 /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-ajax.php(465): WC_Checkout->process_checkout()
+#3 /var/www/html/wp-includes/class-wp-hook.php(303): WC_AJAX::checkout('')
+#4 /var/www/html/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters('', Array)
+#5 /var/www/html/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#6 /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-ajax.php(90): do_action('wc_ajax_checkou...')
+#7 /var/www/html/wp-includes/class-wp-hook.php(303): WC_AJAX::do_wc_ajax('')
+#8 /var/www/html/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filte in /var/www/html/wp-content/plugins/swirepay/swirepay.php on line 277
+
+2021-11-16T20:54:07+00:00 CRITICAL Uncaught Error: Call to undefined function get_return_url() in /var/www/html/wp-content/plugins/swirepay/swirepay.php:272
+Stack trace:
+#0 /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-checkout.php(980): WC_Swirepay_Gateway->process_payment(30)
+#1 /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-checkout.php(1195): WC_Checkout->process_order_payment(30, 'swirepay_gatewa...')
+#2 /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-ajax.php(465): WC_Checkout->process_checkout()
+#3 /var/www/html/wp-includes/class-wp-hook.php(303): WC_AJAX::checkout('')
+#4 /var/www/html/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters('', Array)
+#5 /var/www/html/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#6 /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-ajax.php(90): do_action('wc_ajax_checkou...')
+#7 /var/www/html/wp-includes/class-wp-hook.php(303): WC_AJAX::do_wc_ajax('')
+#8 /var/www/html/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(fals in /var/www/html/wp-content/plugins/swirepay/swirepay.php on line 272
+
+2021-11-16T20:54:56+00:00 CRITICAL Uncaught Error: Call to undefined function get_return_url() in /var/www/html/wp-content/plugins/swirepay/swirepay.php:272
+Stack trace:
+#0 /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-checkout.php(980): WC_Swirepay_Gateway->process_payment(31)
+#1 /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-checkout.php(1195): WC_Checkout->process_order_payment(31, 'swirepay_gatewa...')
+#2 /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-ajax.php(465): WC_Checkout->process_checkout()
+#3 /var/www/html/wp-includes/class-wp-hook.php(303): WC_AJAX::checkout('')
+#4 /var/www/html/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters('', Array)
+#5 /var/www/html/wp-includes/plugin.php(470): WP_Hook->do_action(Array)
+#6 /var/www/html/wp-content/plugins/woocommerce/includes/class-wc-ajax.php(90): do_action('wc_ajax_checkou...')
+#7 /var/www/html/wp-includes/class-wp-hook.php(303): WC_AJAX::do_wc_ajax('')
+#8 /var/www/html/wp-includes/class-wp-hook.php(327): WP_Hook->apply_filters(fals in /var/www/html/wp-content/plugins/swirepay/swirepay.php on line 272
+
