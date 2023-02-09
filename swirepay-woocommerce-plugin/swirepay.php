@@ -285,6 +285,7 @@ function wc_swirepay_gateway_init() {
 			$name = $name + ' ' + $billing['last_name'];
 			$email = $billing['email'];
 			$phoneNumber = $billing['phone'];
+			$country = $billing['country'];
 			
 			// Mark as on-hold (we're awaiting the payment)
 			$order->update_status( 'on-hold', __( 'Awaiting payment', 'wc-swirepay' ) );
@@ -304,7 +305,7 @@ function wc_swirepay_gateway_init() {
 			$body = array(
 				'amount' => $total * 100,
 				'redirectUri' => $this->get_return_url( $order ),
-				'currencyCode' => 'USD',
+				'currencyCode' => $country === 'IN' ? 'INR' : 'USD',
 				'paymentMethodType' => ["CARD"],
 				'email' => $email,
 				'name' => $name,
