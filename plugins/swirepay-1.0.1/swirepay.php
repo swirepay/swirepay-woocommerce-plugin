@@ -280,12 +280,6 @@ function wc_swirepay_gateway_init() {
 			$order = wc_get_order( $order_id );
 			$orderDec = json_decode( $order, true);
 			$total = $orderDec['total'];
-			$billing = $orderDec['billing'];
-			$name = $billing['first_name'];
-			$name = $name + ' ' + $billing['last_name'];
-			$email = $billing['email'];
-			$phoneNumber = $billing['phone'];
-			$country = $billing['country'];
 			
 			// Mark as on-hold (we're awaiting the payment)
 			$order->update_status( 'on-hold', __( 'Awaiting payment', 'wc-swirepay' ) );
@@ -296,11 +290,6 @@ function wc_swirepay_gateway_init() {
 			// Remove cart
 			WC()->cart->empty_cart();
 
-			// Redirect to the thank you page
-			return array(
-				'result' => 'success',
-				'redirect' => $this->get_return_url( $order )
-			);
 
 			// /*
 			// * Your API interaction could be built with wp_remote_post()
@@ -311,12 +300,10 @@ function wc_swirepay_gateway_init() {
 			$body = array(
 				'amount' => $total * 100,
 				'redirectUri' => $this->get_return_url( $order ),
-				'currencyCode' => $country === 'IN' ? 'INR' : 'USD',
+				'currencyCode' => 'USD',
 				'paymentMethodType' => ["CARD"],
-				'email' => $email,
-				'name' => $name,
-				'phoneNumber' => $phoneNumber,
-				'meta' => $orderDec			
+				'meta' => $orderDec,
+				'wcOrderId'=>$order_id		
 			);
 		
 			$args = array(
