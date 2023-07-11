@@ -291,8 +291,13 @@ function wc_swirepay_gateway_init()
 			$orderDec = json_decode($order, true);
 			$total = $orderDec['total'];
 			$currency = $orderDec['currency'];
-			// $billing = $orderDec['billing'];
-			// $country = $billing['country'];
+			$billing = $orderDec['billing'];
+			$name = $billing['first_name'];
+			$lastName = $billing['last_name'];
+			$fullName=$name." ".$lastName;
+			$email = $billing['email'];
+			$phoneNumber = $billing['phone'];
+			
 
 			// Mark as on-hold (we're awaiting the payment)
 			$order->update_status('on-hold', __('Awaiting payment', 'wc-swirepay'));
@@ -315,6 +320,9 @@ function wc_swirepay_gateway_init()
 				'redirectUri' => $this->get_return_url($order),
 				'currencyCode' => $currency,
 				'paymentMethodType' => ["CARD"],
+				'name' => $fullName,
+				'email'=>$email,
+				'phoneNumber'=>$phoneNumber,
 				'meta' => $orderDec,
 				'wcOrderId' => $order_id,
 				'canDecline'=>true
