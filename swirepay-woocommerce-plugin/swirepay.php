@@ -105,6 +105,8 @@ function wc_swirepay_gateway_init()
 			$this->description  = $this->get_option('description');
 			$this->instructions = $this->get_option('instructions', $this->description);
 			$this->enabled = $this->get_option('enabled');
+			$this->declineUrl = $this->get_option('declineUrl');
+			$this->wcInstanceGid=$this->get_option('wcInstanceGid');
 			$this->testmode = 'yes' === $this->get_option('testmode');
 			$this->private_key = $this->testmode ? $this->get_option('test_private_key') : $this->get_option('private_key');
 			$this->publishable_key = $this->testmode ? $this->get_option('test_publishable_key') : $this->get_option('publishable_key');
@@ -150,6 +152,16 @@ function wc_swirepay_gateway_init()
 					'description' => __('Payment method description that the customer will see on your checkout.', 'wc-swirepay'),
 					'default'     => __('All shipments will be processed within 1 business day upon successful payment.', 'wc-swirepay'),
 					'desc_tip'    => true,
+				),
+
+				'declineUrl' => array(
+					'title'       => __('Decline Url', 'wc-swirepay'),
+					'type'        => 'text',
+				),
+
+				'wcInstanceGid' => array(
+					'title'       => __('Instance Gid', 'wc-swirepay'),
+					'type'        => 'text',
 				),
 
 				'testmode' => array(
@@ -290,15 +302,7 @@ function wc_swirepay_gateway_init()
 			$order = wc_get_order($order_id);
 			$orderDec = json_decode($order, true);
 			$total = $orderDec['total'];
-			$currency = $orderDec['currency'];
-			$billing = $orderDec['billing'];
-			$name = $billing['first_name'];
-			$lastName = $billing['last_name'];
-			$fullName=$name." ".$lastName;
-			$email = $billing['email'];
-			$phoneNumber = $billing['phone'];
-			
-
+		
 			// Mark as on-hold (we're awaiting the payment)
 			$order->update_status('on-hold', __('Awaiting payment', 'wc-swirepay'));
 
@@ -313,19 +317,14 @@ function wc_swirepay_gateway_init()
 			// * Your API interaction could be built with wp_remote_post()
 			// */
 
-			$url  = 'https://api.swirepay.com/v1/payment-link';
+			$url  = 'https://api.swirepay.com/v1/woocommerce-order';
 
 			$body = array(
 				'amount' => $total * 100,
-				'redirectUri' => $this->get_return_url($order),
-				'currencyCode' => $currency,
-				'paymentMethodType' => ["CARD"],
-				'name' => $fullName,
-				'email'=>$email,
-				'phoneNumber'=>$phoneNumber,
-				'meta' => $orderDec,
+				'redirectUrl' => $this->get_return_url($order),
+				'declineUrl' =>$this->declineUrl,
 				'wcOrderId' => $order_id,
-				'canDecline'=>true
+				'wcInstanceGid' =>$this->wcInstanceGid,
 			);
 
 			$args = array(
